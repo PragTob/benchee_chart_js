@@ -1,4 +1,4 @@
-# BencheeD3
+# BencheeChartJS
 
 **Work in progress, not yet published or usable. Let's see if I can make this work :)**
 
@@ -8,18 +8,18 @@ Formatter for [benchee](github.com/PragTob/benchee) to produce some standalone H
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
 
-  1. Add `benchee_d3` to your list of dependencies in `mix.exs`:
+  1. Add `benchee_chart_js` to your list of dependencies in `mix.exs`:
 
     ```elixir
     def deps do
-      [{:benchee_d3, "~> 0.1.0"}]
+      [{:benchee_chart_js, "~> 0.1.0"}]
     end
     ```
 
-  2. Ensure `benchee_d3` is started before your application:
+  2. Ensure `benchee_chart_js` is started before your application:
 
     ```elixir
     def application do
-      [applications: [:benchee_d3]]
+      [applications: [:benchee_chart_js]]
     end
     ```

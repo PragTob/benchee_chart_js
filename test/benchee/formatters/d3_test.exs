@@ -1,10 +1,10 @@
-defmodule Benchee.Formatters.D3Test do
+defmodule Benchee.Formatters.ChartJSTest do
   use ExUnit.Case
-  alias Benchee.Formatters.D3
+  alias Benchee.Formatters.ChartJS
 
   @filename "my.html"
   @sample_suite %{
-                  config: %{d3: %{file: @filename}},
+                  config: %{chart_js: %{file: @filename}},
                   statistics: %{
                     "My Job" => %{
                       average: 200.0,
@@ -18,12 +18,12 @@ defmodule Benchee.Formatters.D3Test do
                   run_times: %{"My Job" => [190, 200, 210]}
                 }
   test ".format returns an HTML-ish string" do
-    html = D3.format @sample_suite
+    html = ChartJS.format @sample_suite
     assert html =~ ~r/<html>.+<script>.+<\/html>/si
   end
 
   test ".format has the important suite data in the html result" do
-    html = D3.format @sample_suite
+    html = ChartJS.format @sample_suite
 
     assert_includes html, ["[190,200,210]", "5.0e3",
                            "200.0", "190.0", "My Job"]
@@ -38,7 +38,7 @@ defmodule Benchee.Formatters.D3Test do
 
   test ".output returns the suite again unchanged" do
     try do
-      return = Benchee.Formatters.D3.output(@sample_suite)
+      return = Benchee.Formatters.ChartJS.output(@sample_suite)
       assert return == @sample_suite
       assert File.exists? @filename
     after

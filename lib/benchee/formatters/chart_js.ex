@@ -1,4 +1,4 @@
-defmodule Benchee.Formatters.D3 do
+defmodule Benchee.Formatters.ChartJS do
   require EEx
 
   EEx.function_from_file :def, :report,
@@ -7,16 +7,16 @@ defmodule Benchee.Formatters.D3 do
 
   @moduledoc """
   Functionality for converting Benchee benchmarking results to an HTML page
-  with d3 generated graphs and friends.
+  with chart_js generated graphs and friends.
   """
 
   @doc """
-  Uses `Benchee.Formatters.D3.format/1` to transform the statistics output to
+  Uses `Benchee.Formatters.ChartJS.format/1` to transform the statistics output to
   HTML with JS, but also already writes it to a file defined in the initial
-  configuration under `%{d3: %{file: "my.csv"}}`
+  configuration under `%{chart_js: %{file: "my.csv"}}`
   """
   def output(map)
-  def output(suite = %{config: %{d3: %{file: file}} }) do
+  def output(suite = %{config: %{chart_js: %{file: file}} }) do
     file = File.open! file, [:write]
     html = suite
            |> format

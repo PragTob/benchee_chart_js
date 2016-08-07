@@ -6,10 +6,10 @@ map_fun = fn(i) -> [i, i * i] end
 Benchee.run(
   %{
     formatters: [
-      &Benchee.Formatters.D3.output/1,
+      &Benchee.Formatters.ChartJS.output/1,
       &Benchee.Formatters.Console.output/1
     ],
-    d3: %{file: "my.html"},
+    chart_js: %{file: "my.html"},
     time: 2,
     warmup: 0
   },

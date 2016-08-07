@@ -1,6 +1,6 @@
 <html>
 <head>
-  <script src="assets/javascripts/d3.js"></script>
+  <script src="assets/javascripts/Chart.bundle.min.js"></script>
   <style>
     .chart div {
       background-color: green;
@@ -17,7 +17,7 @@
     var suite = <%= suite_json %>;
     var run_times = suite.run_times;
     var statistics = suite.statistics;
-    d3.select(".chart")
+    chartjs.select(".chart")
       .selectAll("div")
         .data(run_times["flat_map"])
       .enter().append("div")
