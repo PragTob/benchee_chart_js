@@ -5,33 +5,44 @@
     <script src="assets/javascripts/Chart.bundle.min.js"></script>
   </head>
   <body>
-    <canvas id="raw_run_times">
-    </canvas>
+    <%= for {name, _} <- suite.run_times do %>
+      <canvas class="raw-run-times" data-job-name="<%= name %>"></canvas>
+    <% end %>
+
     <script>
-      var suite = <%= suite_json %>;
-      var run_times = suite.run_times;
-      var statistics = suite.statistics;
-      var canvas = document.getElementById("raw_run_times");
-      var myChart = new Chart(canvas, {
+      drawRunTimesChart = function(canvas, runTimeData) {
+        var myChart = new Chart(canvas, {
           type: 'bar',
           data: {
-              labels: run_times["flat_map"].map(function(_) {return "";}),
-              datasets: [{
-                  label: 'run time',
-                  data: run_times["flat_map"],
-                  borderWidth: 1
-              }]
+            labels: runTimeData.map(function(_) {return "";}),
+            datasets: [{
+                label:       'run time',
+                data:        runTimeData,
+                borderWidth: 1
+            }]
           },
           options: {
-              scales: {
-                  yAxes: [{
-                      ticks: {
-                          beginAtZero:true
-                      }
-                  }]
-              }
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
           }
+        });
+      };
+
+      var suite = <%= suite_json %>;
+      var runTimes = suite.run_times;
+      var statistics = suite.statistics;
+      runTimeNodes = document.getElementsByClassName("raw-run-times");
+      runTimesNodesArray = Array.from(runTimeNodes); // Oh JavaScript
+      runTimesNodesArray.forEach(function(node) {
+        var runTimeData = runTimes[node.getAttribute("data-job-name")];
+        drawRunTimesChart(node, runTimeData);
       });
+
     </script>
   </body>
 </html>

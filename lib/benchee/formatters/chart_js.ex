@@ -3,7 +3,7 @@ defmodule Benchee.Formatters.ChartJS do
 
   EEx.function_from_file :def, :report,
                          "templates/report.html.eex",
-                         [:suite_json]
+                         [:suite, :suite_json]
 
   @moduledoc """
   Functionality for converting Benchee benchmarking results to an HTML page
@@ -40,6 +40,6 @@ defmodule Benchee.Formatters.ChartJS do
   """
   def format(suite) do
     suite_json = Benchee.Formatters.JSON.format(suite)
-    report(suite_json)
+    report(suite, suite_json)
   end
 end
