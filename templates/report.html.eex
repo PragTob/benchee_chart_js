@@ -1,29 +1,37 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <script src="assets/javascripts/Chart.bundle.min.js"></script>
-  <style>
-    .chart div {
-      background-color: green;
-    }
-  </style>
-</head>
-<body>
-  <p>
-    Suite JSON: <%= suite_json %>
-  </p>
-  <div class="chart">
-  </div>
-  <script>
-    var suite = <%= suite_json %>;
-    var run_times = suite.run_times;
-    var statistics = suite.statistics;
-    chartjs.select(".chart")
-      .selectAll("div")
-        .data(run_times["flat_map"])
-      .enter().append("div")
-        .style("width", function(i) {return i + "px";})
-        .style("height", "1px")
-        // .text(function(i) {return i;});
-  </script>
-</bod>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf8">
+    <script src="assets/javascripts/Chart.bundle.min.js"></script>
+  </head>
+  <body>
+    <canvas id="raw_run_times">
+    </canvas>
+    <script>
+      var suite = <%= suite_json %>;
+      var run_times = suite.run_times;
+      var statistics = suite.statistics;
+      var canvas = document.getElementById("raw_run_times");
+      var myChart = new Chart(canvas, {
+          type: 'bar',
+          data: {
+              labels: run_times["flat_map"].map(function(_) {return "";}),
+              datasets: [{
+                  label: 'run time',
+                  data: run_times["flat_map"],
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              scales: {
+                  yAxes: [{
+                      ticks: {
+                          beginAtZero:true
+                      }
+                  }]
+              }
+          }
+      });
+    </script>
+  </body>
 </html>
